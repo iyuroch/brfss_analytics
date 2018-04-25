@@ -1,1 +1,4 @@
 #brfss_analytics
+Research on data provided in brfss. 
+You can get data to work with on following link:
+https://d3c33hcgiwev3.cloudfront.net/_384b2d9eda4b29131fb681b243a7767d_brfss2013.RData?Expires=1524787200&Signature=KjiAgxssdCvb-pMZ8I5vvykBdMBGsnojgFqElaZBZcNW-IjP1UIPFG~BT6TGmGqgvX0TpV~llXe1b1joktDYbaHKFB9ggz5Ny47acpBxM5LCzWfLOn1pxVmGLAY1G7vhvV3pUtpjt32nLsJteM4je92H~IDINGT6rNxCtaxZWCo_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A
