@@ -47,7 +47,7 @@ For data collection both in-house interviewers and contracts with telephone call
 
 **Research quesion 3:**
 
-3) Do we have any interconnection of mobile phone and sleep time? How does these variables corelate with healthy days through week? We have idea that using mobile phone can cause less healthy days through week, and healthy days through week is under high impact of mobile phone usage.
+3) Do we have any interconnection of health days and sleep time? How does those variable correlate with general health of respondent?
 
 * * *
 
@@ -76,6 +76,7 @@ sub_brfss %>%
             position=position_stack(vjust = 0.5))
 ```
 Yes/no - indicates if you where diagnosed with depression, and bar - percentage of physical activity
+As we see there are more physicly active people in group of non-depression, and strong difference between those diagnosed with depression. We assume that there is some correlation between those variables
 
 **Research quesion 2:**
 
@@ -83,11 +84,13 @@ Yes/no - indicates if you where diagnosed with depression, and bar - percentage 
 #filter all rows which does not have information
 fl_brfss <- brfss2013 %>% filter(!is.na(ssbsugar)) %>% filter(!is.na(ssbfrut2))
 #examine distribution of oftennes sugar drinks
-ggplot(fl_brfss, aes(ssbsugar)) + geom_bar()
-ggplot(fl_brfss, aes(ssbfrut2)) + geom_bar()
+#ggplot(fl_brfss, aes(ssbsugar)) + geom_bar()
+sugar_mean = mean(fl_brfss$ssbsugar)
+#ggplot(fl_brfss, aes(ssbfrut2)) + geom_bar()
+frut_mean = mean(fl_brfss$ssbfrut2)
 #we assume that often for sugar drinks and sweetened fruit drinks is more than 200
 #let's create variables which describe frequence of sugar and sweetened drinks usage
-fl_brfss <- fl_brfss %>% mutate(freq_sugar = ifelse(ssbsugar > 200, TRUE, FALSE)) %>% mutate(freq_frut = ifelse(ssbfrut2 > 200, TRUE, FALSE))
+fl_brfss <- fl_brfss %>% mutate(freq_sugar = ifelse(ssbsugar > sugar_mean, TRUE, FALSE)) %>% mutate(freq_frut = ifelse(ssbfrut2 > frut_mean, TRUE, FALSE))
 #create frequence table of 2 variables
 df <- as.data.frame(table(fl_brfss$freq_frut, fl_brfss$freq_sugar))
 #create variable of 2 factors
@@ -96,10 +99,17 @@ ggplot(df, aes(x="", y=Freq, fill=name))+
 geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0)
 ```
 Pie chart of people diagnosed with prediabetes. 1 - absense of cofactors, 2 - usage of sugar or sweetened juice, 3 - frequent usage of sugar and sweetened juices.
+As we can see - large part of prediabetes diagnosed group are often using sweetened drinks and juices. We can assume that there is some trend with those variables
 
 **Research quesion 3:**
 
 ```{r}
-
+#sleptim1 genhlth poorhlth
+#read new dataset of unique healthy days poorhlth
+poor_hlth <- brfss2013 %>% filter(!is.na(sleptim1)) %>% filter(!is.na(genhlth)) %>% filter(!is.na(poorhlth)) %>% select(c(sleptim1, genhlth, poorhlth)) %>% mutate(genhlth=as.numeric(genhlth))
+poor_hlth <- aggregate(poor_hlth, list(Days = poor_hlth$poorhlth), mean)
+ggplot(poor_hlth, aes(y = sleptim1, x = poorhlth, fill = genhlth)) + geom_bar(stat="identity") + geom_smooth(method = "lm")
 ```
+Poorhlth - number of days in month when respondent feeling bad, sleptim1 - hours of sleep he have on average and genlth - how assess his own health.
+As we see, genhlth strongly correlates with poorhlth - more days on month respondend feels bad - worsen he feels in general. There is trend of sleep time and poor health - less sleep time - more bad health days respondent have.
 

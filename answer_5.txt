@@ -13,6 +13,6 @@ that you have pre-diabetes or borderline diabetes?
     ssbfrut1: How often did you drink sweetened fruit drinks, such as kool-aid, cranberry juice cocktail and lemo?
 
 	3) Do we have any interconnection of mobile phone and sleep time? How does those variables correlate with healthy days through week? We have idea that using mobile phone can cause less healthy days through week, and healthy days through week is under high impact of mobile phone usage.
-	sleptim1: How Much Time Do You Sleep
-	cellfon3: Cellular Telephone
-	poorhlth: Poor Physical Or Mental Health
+	sleptim1: How Much Time Do You Sleep we will calculate mean value for each poorhlth
+    genhlth: general health of respondent
+	poorhlth: number of day with Poor Physical Or Mental Health
